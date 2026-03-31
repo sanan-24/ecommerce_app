@@ -24,7 +24,9 @@ const signupService = async (username, email, password) => {
     password: hashPassword,
   });
   // Return user
-  return user;
+  const userData = user.toJSON();
+    delete userData.password;
+  return userData;
 };
 
 const signinService = async (email, password)=>{
@@ -44,8 +46,12 @@ const signinService = async (email, password)=>{
     }
     // Generate token
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    //remove password
+    const userData = user.toJSON();
+    delete userData.password;
     return { 
-        user, token
+        user: userData, 
+        token
      };
 
 }
