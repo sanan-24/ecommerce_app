@@ -3,6 +3,7 @@ const cors = require('cors');
 const errorMiddleware = require('./middlewares/errorMiddleWare');
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const productRoutes = require('./routes/productRoutes');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -12,6 +13,8 @@ app.use(express.json());
 app.use('/api/v1/auth/', authRoutes);
 // profile routes
 app.use('/api/v1/', profileRoutes);
+// product routes
+app.use('/api/v1/products', productRoutes);
 
 // Global error handling middleware
 app.use(errorMiddleware);
