@@ -56,11 +56,11 @@ const addToCartService = async (userId, productId, quantity) => {
     },
   });
   if (cartItem) {
-    if (cartItem.quantity + quantity > product.stock) {
+    if (quantity > product.stock) {
       throw new ApiError(400, "Quantity exceeds available stock");
     }
 
-    cartItem.quantity += quantity;
+    cartItem.quantity = quantity; // Updated to replace the quantity instead of incrementing it
     await cartItem.save();
   } else {
     if (quantity > product.stock) {
